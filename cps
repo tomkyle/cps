@@ -83,17 +83,20 @@ function main {
 	WORKFILE="${1}"
 	SUFFIX="${2}"
 
+	# Just in case $INPUT_FILE is NOT a regular file
 	if [ ! -f "${WORKFILE}" ]; then
 		e_warning "$(printf '"%s" is not a regular file. Ignoring.' "${WORKFILE}")"
 		exit 1
 	fi
 
+	# File name magic
 	source_file_extension="${WORKFILE##*.}";
 	source_file_basename="${WORKFILE%.$source_file_extension}"
 	source_file_basename="${source_file_basename##*/}" # remove trailing slash
 
 	target_file="${source_file_basename}${SUFFIX}.${source_file_extension}"
 
+	# Copy file
 	if cp "${WORKFILE}" "${target_file}"; then
 		e_success ""
 		echo "${WORKFILE}" → "${target_file}"

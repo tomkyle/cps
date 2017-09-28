@@ -55,17 +55,16 @@ readonly NC='\033[0m' # No Color
 
 # Error message and error exit, redirecting stdout to stderr
 function e_error {
-	echo -e >&2 "${C_RED}Error: ${*}${NC}";
+	echo -e >&2 "${C_RED}✘ Error:${NC} ${*-}";
 	exit 1;
 }
 
 function e_warning {
-  echo -e "${C_ORANGE}Warning: ${*}${NC}"
+  echo -e "${C_ORANGE}❱ Warning:${NC} ${*-}"
 }
 
-
 function e_success () {
-  printf "${C_GREEN}✔ %s${NC}" "${*-}"
+  echo -e "${C_GREEN}✔ Success:${NC} ${*-}"
 }
 
 function require  {

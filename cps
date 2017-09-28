@@ -24,13 +24,6 @@ set -o pipefail
 # set -o xtrace
 
 
-# Internal Field Separator
-readonly DEFAULT_IFS="${IFS}"
-readonly SAFER_IFS=$'\n\t'
-IFS="${SAFER_IFS}"
-
-
-
 # ---------------------------------------
 # Print short help if no arguments
 # ---------------------------------------
@@ -38,6 +31,8 @@ IFS="${SAFER_IFS}"
 readonly SCRIPT_NAME=$(basename "${0}")
 
 if [ "$#" -eq 0 ]; then
+	echo "cps - Create a file copy with given suffix"
+	echo;
 	echo "Usage: ${SCRIPT_NAME} <file> <suffix>"
 	exit 1
 fi
@@ -68,10 +63,10 @@ function e_success () {
 }
 
 function require  {
-	command -v "${1}" >/dev/null 2>&1 || e_error "Program ${1} required, but it's not installed";
+	command -v "${1}" >/dev/null 2>&1 || e_error "Program '${1}' required, but it's not installed";
 }
 
-require cp
+require cp2
 
 
 # -----------------------------------
@@ -98,8 +93,7 @@ function main {
 
 	# Copy file
 	if cp "${WORKFILE}" "${target_file}"; then
-		e_success ""
-		echo "${WORKFILE}" → "${target_file}"
+		e_success "${WORKFILE}" → "${target_file}"
 	else
 		exit 1
 	fi

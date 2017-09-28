@@ -66,7 +66,7 @@ function require  {
 	command -v "${1}" >/dev/null 2>&1 || e_error "Program '${1}' required, but it's not installed";
 }
 
-require cp2
+require cp
 
 
 # -----------------------------------
@@ -93,7 +93,7 @@ function main {
 
 	# Copy file
 	if cp "${WORKFILE}" "${target_file}"; then
-		e_success "${WORKFILE}" → "${target_file}"
+		e_success "$(printf "%s → %s" "${WORKFILE}" "${target_file}")"
 	else
 		exit 1
 	fi
